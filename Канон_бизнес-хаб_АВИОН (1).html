@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АВИОН — бизнес-хаб. Расширенная концепция презентации</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base:#0B0B1C;
+  --panel:#12122B;
+  --line:rgba(255,255,255,.08);
+  --blue:#189CD8;
+  --violet:#3F3288;
+  --pink:#E62379;
+  --orange:#F29222;
+  --white:#FFFFFF;
+  --gray:#8A8AA3;
+  --muted:#6B6B8C;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--base);color:var(--white);
+  font-family:'Stem','Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  scroll-behavior:smooth;}
+a{color:var(--blue);text-decoration:none;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+/* ---------- Навигация ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(11,11,28,.86);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);}
+.nav-in{display:flex;align-items:center;justify-content:space-between;
+  height:60px;}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:1px;}
+.brand .dot{width:14px;height:14px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--violet),var(--pink),var(--orange));}
+.brand small{display:block;font-size:10px;font-weight:400;color:var(--gray);
+  letter-spacing:3px;text-transform:uppercase;}
+.nav-links{display:flex;gap:18px;font-size:13px;color:var(--gray);}
+.nav-links a:hover{color:var(--white);}
+
+/* ---------- Слайд ---------- */
+section{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;
+  border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.kicker{display:inline-block;font-size:12px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:18px;}
+h1{font-size:64px;line-height:1.05;font-weight:800;letter-spacing:-1px;}
+h2{font-size:42px;line-height:1.08;font-weight:800;letter-spacing:-.5px;margin-bottom:22px;}
+h3{font-size:20px;font-weight:700;margin-bottom:8px;}
+.lead{font-size:19px;line-height:1.6;color:var(--gray);max-width:640px;}
+.grid{display:grid;gap:22px;margin-top:40px;}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+.g6{grid-template-columns:repeat(6,1fr);}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:0;
+  padding:22px;transition:transform .2s, border-color .2s;}
+.card:hover{transform:translateY(-3px);border-color:var(--blue);}
+.card .num{font-size:12px;letter-spacing:2px;color:var(--muted);margin-bottom:14px;}
+.card p{font-size:14px;line-height:1.5;color:var(--gray);}
+.sw{font-size:0;line-height:0;}
+
+/* ---------- Эквалайзер ---------- */
+.eq{display:flex;align-items:flex-end;gap:6px;height:48px;}
+.eq span{width:8px;border-radius:0;background:var(--blue);
+  animation:eq 1.2s ease-in-out infinite;}
+.eq span:nth-child(2){animation-delay:.1s;background:var(--violet);height:30px;}
+.eq span:nth-child(3){animation-delay:.2s;background:var(--pink);height:44px;}
+.eq span:nth-child(4){animation-delay:.3s;background:var(--orange);height:22px;}
+.eq span:nth-child(5){animation-delay:.15s;height:40px;}
+.eq span:nth-child(6){animation-delay:.25s;background:var(--violet);height:28px;}
+@keyframes eq{0%,100%{height:14px;}50%{height:46px;}}
+
+/* ---------- Схема узла (hub) ---------- */
+.hub{position:relative;width:560px;max-width:100%;margin:0 auto;}
+.hub svg{width:100%;height:auto;display:block;}
+.hub-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;font-size:12px;letter-spacing:2px;color:var(--gray);}
+
+/* ---------- Цвета направлений ---------- */
+.swatch{height:74px;border-radius:0;margin-bottom:12px;border:1px solid var(--line);}
+.sw-blue{background:linear-gradient(135deg,#189CD8,#0E5F88);}
+.sw-orange{background:linear-gradient(135deg,#F29222,#B95F0A);}
+.sw-pink{background:linear-gradient(135deg,#E62379,#9E1450);}
+.sw-violet{background:linear-gradient(135deg,#3F3288,#241B55);}
+.sw-white{background:linear-gradient(135deg,#FFFFFF,#B9B9CE);border-color:#4A4A6B;}
+.sw-graphite{background:linear-gradient(135deg,#34344E,#14142E);}
+.dir-name{font-size:14px;font-weight:700;}
+.dir-sub{font-size:12px;color:var(--gray);margin-bottom:8px;}
+.dir-tag{display:inline-block;font-size:11px;color:var(--gray);
+  border:1px solid var(--line);border-radius:0;padding:3px 10px;}
+
+/* ---------- Фото-слоты ---------- */
+.photo{height:220px;border-radius:0;position:relative;overflow:hidden;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,#1B1B38,#282858);display:flex;
+  align-items:flex-end;padding:16px;}
+.photo .cap{font-size:13px;font-weight:600;}
+.photo .tag{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.ph-1{background:linear-gradient(160deg,#0B1E3A 20%,#189CD8 160%);}
+.ph-2{background:linear-gradient(160deg,#3F3288 0%,#0B0B1C 150%);}
+.ph-3{background:linear-gradient(160deg,#241B55 0%,#E62379 170%);}
+.ph-4{background:linear-gradient(160deg,#0B0B1C 0%,#F29222 190%);}
+.ph-5{background:linear-gradient(160deg,#12122B 0%,#54547E 160%);}
+.ph-6{background:linear-gradient(160deg,#0B0B1C 0%,#189CD8 150%);}
+
+/* ---------- Шаги ---------- */
+.steps{counter-reset:st;display:grid;gap:14px;}
+.step{display:flex;gap:16px;align-items:flex-start;
+  background:var(--panel);border:1px solid var(--line);border-radius:0;padding:18px;}
+.step .ic{counter-increment:st;flex:0 0 44px;height:44px;border-radius:0;
+  background:linear-gradient(135deg,var(--blue),var(--violet));
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;}
+.step .ic::before{content:counter(st);}
+.step b{display:block;font-size:15px;margin-bottom:4px;}
+.step p{font-size:13px;color:var(--gray);line-height:1.5;}
+
+/* ---------- Таблица ---------- */
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:14px;}
+th{text-align:left;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);padding:12px;border-bottom:1px solid var(--line);}
+td{padding:14px 12px;border-bottom:1px solid var(--line);color:var(--gray);line-height:1.5;}
+td:first-child,th:first-child{color:var(--white);font-weight:600;width:22%;}
+
+/* ---------- Чек-лист ---------- */
+.check{list-style:none;margin-top:10px;}
+.check li{display:flex;gap:14px;align-items:flex-start;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:15px;}
+.check .mk{flex:0 0 24px;height:24px;border-radius:0;border:2px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;color:var(--base);
+  background:var(--blue);font-weight:800;font-size:14px;}
+.check .no .mk{background:transparent;color:transparent;border-color:var(--muted);}
+.check li span.t{color:var(--gray);font-size:13px;display:block;margin-top:2px;}
+
+/* ---------- Выбрасыватель / сноски ---------- */
+.note{font-size:12px;color:var(--muted);max-width:640px;line-height:1.6;margin-top:26px;}
+.footer{position:relative;padding:60px 0 40px;}
+.footer .grid{grid-template-columns:1fr auto;align-items:center;}
+.pill{display:inline-block;font-size:12px;color:var(--gray);
+  border:1px solid var(--line);border-radius:0;padding:6px 14px;margin:4px 4px 4px 0;}
+.center{text-align:center;}
+.big{font-size:84px;font-weight:800;line-height:1;letter-spacing:-2px;}
+.gradient-text{background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink),var(--orange));
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+@media(max-width:900px){
+  h1{font-size:44px;}h2{font-size:32px;}
+  .g2,.g3,.g4,.g6{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><span class="dot"></span>
+      <div>АВИОН<small>бизнес-хаб · концепция</small></div>
+    </div>
+    <div class="nav-links">
+      <a href="#ideya">Идея</a>
+      <a href="#hab">Хаб</a>
+      <a href="#pochemu">Почему</a>
+      <a href="#koncept">Концепт</a>
+      <a href="#grafika">Графика</a>
+      <a href="#foto">Фото</a>
+      <a href="#styli">Канон</a>
+      <a href="#sborka">Сборка</a>
+      <a href="#adapt">Форматы</a>
+      <a href="#checklist">Чек-лист</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ 1. Обложка ============ -->
+<section id="cover">
+  <div class="wrap">
+    <span class="kicker">Концепция презентации · 2026</span>
+    <h1>АВИОН —<br>бизнес-хаб</h1>
+    <p class="lead" style="margin-top:24px;">
+      Расширенная концепция визуального образа: узел, где в одной точке
+      сходятся бизнес-процессы. Навигация, входная группа, пакеты и буклеты
+      — единая визуальная система «взлётной сети».
+    </p>
+    <div class="grid g3">
+      <div class="card"><div class="num">МЕТАФОРА</div><div class="eq"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p>Взлётная сеть: ядро + шесть маршрутов-направлений.</p></div>
+      <div class="card"><div class="num">ПРИНЦИП</div><div class="eq"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p>Все потоки сходятся в одной точке — hub-and-spoke.</p></div>
+      <div class="card"><div class="num">ФОРМАТ</div><div class="eq"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p>Экранные страницы под брендбук: графит + акценты, без текста в макетах.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. Идея / метафора ============ -->
+<section id="ideya">
+  <div class="wrap">
+    <span class="kicker">01 · Идея</span>
+    <h2>Что мы визуализируем</h2>
+    <div class="grid g2">
+      <div>
+        <p class="lead">«Бизнес-хаб» — узел, где соединяются разные бизнес-процессы.
+          Авиационная метафора hub-and-spoke («ступица и спицы») делает идею
+          мгновенно считываемой: у всего есть общий центр.</p>
+        <div class="hub" style="margin-top:30px;">
+          <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gcore" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#189CD8"/><stop offset="1" stop-color="#3F3288"/>
+              </linearGradient>
+            </defs>
+            <g stroke="#189CD8" stroke-width="2" opacity=".6">
+              <line x1="280" y1="200" x2="120" y2="80"/>
+              <line x1="280" y1="200" x2="440" y2="80"/>
+              <line x1="280" y1="200" x2="120" y2="320"/>
+              <line x1="280" y1="200" x2="440" y2="320"/>
+              <line x1="280" y1="200" x2="60" y2="200"/>
+              <line x1="280" y1="200" x2="500" y2="200"/>
+            </g>
+            <circle cx="280" cy="200" r="52" fill="url(#gcore)"/>
+            <g fill="#0B0B1C" stroke="#3F3288">
+              <circle cx="120" cy="80" r="16"/><circle cx="440" cy="80" r="16"/>
+              <circle cx="120" cy="320" r="16"/><circle cx="440" cy="320" r="16"/>
+              <circle cx="60" cy="200" r="16"/><circle cx="500" cy="200" r="16"/>
+            </g>
+          </svg>
+          <div class="hub-label">ядро<br>АВИОН</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;">Три смысловых слоя</h3>
+        <div class="steps">
+          <div class="step"><div class="ic"></div><div><b>Логистика</b>
+            <p>Узел сходится с грузовых потоков: принимают, сортируют, консолидируют, отправляют.</p></div></div>
+          <div class="step"><div class="ic"></div><div><b>Авиация</b>
+            <p>Узловой аэропорт: пассажиры и грузы стыкуются и разлетаются по направлениям.</p></div></div>
+          <div class="step"><div class="ic"></div><div><b>Бизнес</b>
+            <p>Центр деловой активности: компании обмениваются идеями и развивают проекты.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. Что такое хаб ============ -->
+<section id="hab">
+  <div class="wrap">
+    <span class="kicker">02 · Определение</span>
+    <h2>Хаб — это узел и соединения</h2>
+    <div class="grid g3">
+      <div class="card"><div class="num">ЛОГИСТИКА</div><b>Перевалочный узел</b>
+        <p>Грузы принимают, сортируют, консолидируют мелкие партии в крупные
+          и перегружают между видами транспорта.</p></div>
+      <div class="card"><div class="num">АВИАЦИЯ</div><b>Узловой аэропорт</b>
+        <p>Рейсы стыкуются в одной точке: прилетели, пересадились, разлетелись
+          до конечного пункта.</p></div>
+      <div class="card"><div class="num">БИЗНЕС</div><b>Центр активности</b>
+        <p>Пространство, где компании, стартапы и университеты обмениваются
+          знаниями и совместно развивают проекты.</p></div>
+    </div>
+    <p class="lead" style="margin-top:34px;">
+      АВИОН объединяет обе логики: физический узел на земле (офисы, галереи,
+      сервисы) и «полёт» идей и людей между ними — как рейсы через хаб.</p>
+  </div>
+</section>
+
+<!-- ============ 4. Почему АВИОН — бизнес-хаб ============ -->
+<section id="pochemu">
+  <div class="wrap">
+    <span class="kicker">03 · Почему АВИОН</span>
+    <h2>Шесть направлений — одна точка</h2>
+    <p class="lead">В одной точке сходятся шесть разных бизнес-процессов.
+      Каждому направлению — свой узел, цвет и маршрут.</p>
+    <div class="grid g6" style="margin-top:36px;">
+      <div><div class="swatch sw-blue"></div><div class="dir-name">Офисы</div>
+        <div class="dir-sub">офисный комплекс</div><span class="dir-tag">#189CD8</span></div>
+      <div><div class="swatch sw-orange"></div><div class="dir-name">Галереи</div>
+        <div class="dir-sub">торговые галереи</div><span class="dir-tag">#F29222</span></div>
+      <div><div class="swatch sw-pink"></div><div class="dir-name">Фитнес</div>
+        <div class="dir-sub">фитнес-пространство</div><span class="dir-tag">#E62379</span></div>
+      <div><div class="swatch sw-violet"></div><div class="dir-name">Бьюти</div>
+        <div class="dir-sub">бьюти-центр</div><span class="dir-tag">#3F3288</span></div>
+      <div><div class="swatch sw-white"></div><div class="dir-name">Конференц</div>
+        <div class="dir-sub">конференц-залы</div><span class="dir-tag">#FFFFFF</span></div>
+      <div><div class="swatch sw-graphite"></div><div class="dir-name">Терраса</div>
+        <div class="dir-sub">терраса на крыше</div><span class="dir-tag">#34344E</span></div>
+    </div>
+    <div class="card" style="margin-top:30px;">
+      <b>Квинтэссенция</b>
+      <p style="margin-top:8px;">Узел, соединение бизнес-процессов. Визуально — ядро с шестью
+        спицами: каждый процесс «долетает» до общего центра, как рейс в хаб.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. Концепция «Взлётная сеть» ============ -->
+<section id="koncept">
+  <div class="wrap">
+    <span class="kicker">04 · Концепция</span>
+    <h2>«Взлётная сеть»</h2>
+    <div class="grid g2">
+      <div>
+        <p class="lead">Центральное ядро — АВИОН. Вокруг — шесть узлов-направлений,
+          соединённых маршрутами-спицами. Авиатема: взлёт, маршруты, орбиты,
+          точки соединений.</p>
+        <h3 style="margin:26px 0 14px;">Принципы</h3>
+        <ul class="check" style="border-top:1px solid var(--line);">
+          <li><span class="mk">✓</span><div>Один центр — много направлений<div class="t">Композиция всегда сходится к ядру.</div></div></li>
+          <li><span class="mk">✓</span><div>Каждому — свой цвет и узел<div class="t">Мгновенная считываемость направлений.</div></div></li>
+          <li><span class="mk">✓</span><div>Авиа-мотив, а не авиа-буквальность<div class="t">Маршруты, дуги, точки — без плоскостей и самолётов в лоб.</div></div></li>
+          <li><span class="mk">✓</span><div>Чистая графика без текста<div class="t">Применимо в любой раскладке и масштабе.</div></div></li>
+        </ul>
+      </div>
+      <div class="hub">
+        <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gc2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#189CD8"/><stop offset="1" stop-color="#E62379"/>
+            </linearGradient>
+          </defs>
+          <g stroke-width="2" opacity=".55">
+            <line x1="280" y1="200" x2="120" y2="80" stroke="#189CD8"/>
+            <line x1="280" y1="200" x2="440" y2="80" stroke="#F29222"/>
+            <line x1="280" y1="200" x2="120" y2="320" stroke="#E62379"/>
+            <line x1="280" y1="200" x2="440" y2="320" stroke="#3F3288"/>
+            <line x1="280" y1="200" x2="60" y2="200" stroke="#FFFFFF"/>
+            <line x1="280" y1="200" x2="500" y2="200" stroke="#34344E"/>
+          </g>
+          <circle cx="280" cy="200" r="54" fill="url(#gc2)"/>
+          <circle cx="280" cy="200" r="70" fill="none" stroke="#FFFFFF" stroke-dasharray="4 8" opacity=".4"/>
+          <g fill="#0B0B1C">
+            <circle cx="120" cy="80" r="18" stroke="#189CD8"/><circle cx="120" cy="80" r="18" fill="none" stroke="#189CD8"/>
+            <circle cx="440" cy="80" r="18" stroke="#F29222"/>
+            <circle cx="120" cy="320" r="18" stroke="#E62379"/>
+            <circle cx="440" cy="320" r="18" stroke="#3F3288"/>
+            <circle cx="60" cy="200" r="18" stroke="#FFFFFF"/>
+            <circle cx="500" cy="200" r="18" stroke="#34344E"/>
+          </g>
+        </svg>
+        <div class="hub-label">АВИОН<br>ядро</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. Графика ============ -->
+<section id="grafika">
+  <div class="wrap">
+    <span class="kicker">05 · Графические элементы</span>
+    <h2>Библиотека образа</h2>
+    <p class="lead">Набор модулей, из которых собирается образ в любом макете.</p>
+    <div class="grid g3" style="margin-top:36px;">
+      <div class="card"><div class="num">ЭЛЕМЕНТ · 01</div>
+        <div class="eq"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p><b>Ядро-эквалайзер.</b> Центр, «дышащий» активностью всех направлений.</p></div>
+      <div class="card"><div class="num">ЭЛЕМЕНТ · 02</div><div class="sw"></div>
+        <div class="hub" style="width:120px;margin:0;"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="26" fill="#0B0B1C" stroke="#189CD8"/><circle cx="60" cy="60" r="34" fill="none" stroke="#3F3288" stroke-dasharray="3 6"/></svg></div>
+        <p><b>Узел-орбита.</b> Гекса-узел с орбитой — направление «на связи» с ядром.</p></div>
+      <div class="card"><div class="num">ЭЛЕМЕНТ · 03</div><div class="sw"></div>
+        <div class="husb" style="height:48px;border-left:3px solid #F29222;border-right:3px solid #E62379;"></div>
+        <p><b>Спица-маршрут.</b> Линия от центра к узлу — «перелёт» процесса.</p></div>
+      <div class="card"><div class="num">ЭЛЕМЕНТ · 04</div><div class="sw"></div>
+        <svg viewBox="0 0 120 60" style="width:100%;"><path d="M10 50 Q60 -5 110 50" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".7"/><path d="M104 38 L112 50 L97 50 Z" fill="#FFFFFF"/></svg>
+        <p><b>Дуга-орбита со стрелкой.</b> Направление движения и «полёта».</p></div>
+      <div class="card"><div class="num">ЭЛЕМЕНТ · 05</div><div class="sw"></div>
+        <svg viewBox="0 0 120 60" style="width:100%;"><circle cx="30" cy="30" r="6" fill="#E62379"/><circle cx="70" cy="18" r="6" fill="#189CD8"/><circle cx="95" cy="42" r="6" fill="#F29222"/><path d="M30 30 L70 18 M70 18 L95 42" stroke="#3F3288" stroke-width="2"/></svg>
+        <p><b>Точки-соединения.</b> Мини-узлы, связывающие несколько потоков.</p></div>
+      <div class="card"><div class="num">ЭЛЕМЕНТ · 06</div><div class="sw"></div>
+        <div style="height:40px;display:flex;align-items:flex-end;gap:8px;">
+          <span style="height:30%;width:10px;background:#189CD8"></span>
+          <span style="height:70%;width:10px;background:#3F3288"></span>
+          <span style="height:45%;width:10px;background:#E62379"></span>
+          <span style="height:90%;width:10px;background:#F29222"></span>
+        </div>
+        <p><b>Полосы-индексы.</b> Доля и состав каждого направления в общем потоке.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. Фото ============ -->
+<section id="foto">
+  <div class="wrap">
+    <span class="kicker">06 · Фото</span>
+    <h2>Фото-направления</h2>
+    <p class="lead">Фото-коллаж + плоская фирменная графика. Ниже — шесть типов
+      кадров (места-заглушки) под каждое направление.</p>
+    <div class="grid g3" style="margin-top:36px;">
+      <div class="photo ph-1"><div><div class="tag">Авиация</div><div class="cap">Взлёт, маршрут, горизонт</div></div></div>
+      <div class="photo ph-2"><div><div class="tag">Город</div><div class="cap">Архитектура, фасады</div></div></div>
+      <div class="photo ph-3"><div><div class="tag">Деловая среда</div><div class="cap">Офисы, переговоры</div></div></div>
+      <div class="photo ph-4"><div><div class="tag">Сервис</div><div class="cap">Фитнес, бьюти, отдых</div></div></div>
+      <div class="photo ph-5"><div><div class="tag">Пространство</div><div class="cap">Галереи, атриумы</div></div></div>
+      <div class="photo ph-6"><div><div class="tag">Премиум-детали</div><div class="cap">Материалы, свет, текстуры</div></div></div>
+    </div>
+    <p class="note">Принцип: фото не «иллюстрирует», а задаёт среду; фирменная
+      графика (узел, спицы, дуги) накладывается сверху как схема потоков.</p>
+  </div>
+</section>
+
+<!-- ============ 8. Цвет и стиль (канон) ============ -->
+<section id="styli">
+  <div class="wrap">
+    <span class="kicker">07 · Канон</span>
+    <h2>Цвет и стиль</h2>
+    <div class="grid g3">
+      <div class="card" style="grid-column:span 2;">
+        <div class="num">ПАЛИТРА</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+          <div><div class="swatch" style="background:#189CD8;height:60px;"></div><div style="font-size:12px;color:var(--gray);">#189CD8<br>голубой</div></div>
+          <div><div class="swatch" style="background:#3F3288;height:60px;"></div><div style="font-size:12px;color:var(--gray);">#3F3288<br>фиолет</div></div>
+          <div><div class="swatch" style="background:#E62379;height:60px;"></div><div style="font-size:12px;color:var(--gray);">#E62379<br>розовый</div></div>
+          <div><div class="swatch" style="background:#F29222;height:60px;"></div><div style="font-size:12px;color:var(--gray);">#F29222<br>оранж</div></div>
+          <div><div class="swatch" style="background:#0B0B1C;border-color:#3A3A5C;height:60px;"></div><div style="font-size:12px;color:var(--gray);">#0B0B1C<br>графит-база</div></div>
+        </div>
+        <p style="margin-top:16px;font-size:14px;color:var(--gray);">
+          База — глубокий графит <b style="color:#fff;">#0B0B1C</b>. Яркие акценты
+          — не более <b style="color:#fff;">30%</b> площади. Каждое направление
+          закреплено за своим цветом.</p>
+      </div>
+      <div class="card">
+        <div class="num">ГРАФИЧЕСКАЯ СИСТЕМА</div>
+        <ul class="check" style="border-top:1px solid var(--line);">
+          <li><span class="mk">✓</span><div>Швейцарская модульная сетка</div></li>
+          <li><span class="mk">✓</span><div>Геометрия: круг, гексагон, линия</div></li>
+          <li><span class="mk">✓</span><div>Чистые прямоугольные края, без скруглений</div></li>
+          <li><span class="mk">✓</span><div>Шрифт без засечек, жирный для заголовков</div></li>
+          <li><span class="mk">✓</span><div>Без текста внутри графических макетов</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:20px;">
+      <div class="card"><b>Логотип</b><p>Ядро + орбита, монохромно-акцентный вариант.</p></div>
+      <div class="card"><b>Типографика</b><p>Заголовок — жирный, широкий; корректный — светлый.</p></div>
+      <div class="card"><b>Сетка</b><p>Модульные колонки под любую раскладку.</p></div>
+      <div class="card"><b>Паттерн</b><p>Повторяющиеся узлы-точки, как схема маршрутов.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. Сборка образа ============ -->
+<section id="sborka">
+  <div class="wrap">
+    <span class="kicker">08 · Сборка</span>
+    <h2>Как собрать макет</h2>
+    <div class="grid g2">
+      <div class="steps">
+        <div class="step"><div class="ic"></div><div><b>Задай центр</b>
+          <p>Ядро-метка АВИОН — всегда смысловой фокус композиции.</p></div></div>
+        <div class="step"><div class="ic"></div><div><b>Разведи шесть узлов</b>
+          <p>Направления по окружности, каждое со своим цветом.</p></div></div>
+        <div class="step"><div class="ic"></div><div><b>Соедини спицами</b>
+          <p>Маршруты от узлов к ядру, дуги со стрелками направления.</p></div></div>
+        <div class="step"><div class="ic"></div><div><b>Добавь среду</b>
+          <p>Фото-подложка, по ней — плоская графика связи потоков.</p></div></div>
+        <div class="step"><div class="ic"></div><div><b>Индексируй</b>
+          <p>Полосы-индексы показывают состав и долю направлений.</p></div></div>
+        <div class="step"><div class="ic"></div><div><b>Проверь по чек-листу</b>
+          <p>Узел, авиатема, шесть направлений, канон, применимость.</p></div></div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="hub" style="width:300px;">
+          <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+            <g stroke-width="2" opacity=".5">
+              <line x1="280" y1="200" x2="120" y2="80" stroke="#189CD8"/>
+              <line x1="280" y1="200" x2="440" y2="80" stroke="#F29222"/>
+              <line x1="280" y1="200" x2="120" y2="320" stroke="#E62379"/>
+              <line x1="280" y1="200" x2="440" y2="320" stroke="#3F3288"/>
+              <line x1="280" y1="200" x2="60" y2="200" stroke="#FFFFFF"/>
+              <line x1="280" y1="200" x2="500" y2="200" stroke="#34344E"/>
+            </g>
+            <circle cx="280" cy="200" r="54" fill="#0B0B1C" stroke="#189CD8"/>
+            <g fill="#0B0B1C">
+              <circle cx="120" cy="80" r="18" stroke="#189CD8"/>
+              <circle cx="440" cy="80" r="18" stroke="#F29222"/>
+              <circle cx="120" cy="320" r="18" stroke="#E62379"/>
+              <circle cx="440" cy="320" r="18" stroke="#3F3288"/>
+              <circle cx="60" cy="200" r="18" stroke="#FFFFFF"/>
+              <circle cx="500" cy="200" r="18" stroke="#34344E"/>
+            </g>
+          </svg>
+        </div>
+        <p style="color:var(--gray);font-size:13px;">Схема-эталон «взлётной сети»</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. Адаптация по форматам ============ -->
+<section id="adapt">
+  <div class="wrap">
+    <span class="kicker">09 · Адаптация</span>
+    <h2>Один образ — все форматы</h2>
+    <table>
+      <tr><th>Формат</th><th>Как применяется образ</th></tr>
+      <tr><td>Навигация</td><td>Узлы-маршруты по зонам; стрелки-указатели ведут к ядру и между направлениями.</td></tr>
+      <tr><td>Входная группа</td><td>Крупное ядро-эквалайзер встречает; шесть цветных узлов обозначают зоны.</td></tr>
+      <tr><td>Пакеты</td><td>Мини-узел на носителе, полосы-индексы направлений; адаптив от малого до крупного.</td></tr>
+      <tr><td>Буклеты</td><td>Схема hub-and-spoke как разворот-схема; фото-коллаж + плоская графика.</td></tr>
+      <tr><td>Экран / цифра</td><td>Анимации дуг и узлов, «взлёт» полос-индексов при появлении.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 11. Чек-лист ============ -->
+<section id="checklist">
+  <div class="wrap">
+    <span class="kicker">10 · Проверка</span>
+    <h2>Чек-лист образа «бизнес-хаб»</h2>
+    <div class="grid g2">
+      <div class="card">
+        <ul class="check" style="border-top:1px solid var(--line);">
+          <li><span class="mk">✓</span><div>Виден узел и его соединения
+            <div class="t">Композиция сходится к ядру, спицы читаются как связи.</div></div></li>
+          <li><span class="mk">✓</span><div>Авиатема hub-and-spoke
+            <div class="t">Взлёт, маршруты, орбиты — без буквальных самолётов.</div></div></li>
+          <li><span class="mk">✓</span><div>Все шесть направлений в одной точке
+            <div class="t">Офисы, галереи, фитнес, бьюти, конференц-залы, терраса.</div></div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="check" style="border-top:1px solid var(--line);">
+          <li><span class="mk">✓</span><div>Фирменный стиль, канон, без текста
+            <div class="t">Графит-база, акценты ≤30%, чистые края.</div></div></li>
+          <li><span class="mk">✓</span><div>Применим во всех форматах
+            <div class="t">Навигация, входная группа, пакеты, буклеты, цифра.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12. Финал ============ -->
+<section class="footer center">
+  <div class="wrap">
+    <span class="kicker">АВИОН · бизнес-хаб</span>
+    <div class="big">Сеть<br><span class="gradient-text">взлетает</span></div>
+    <p class="lead" style="margin:26px auto;">Один узел соединяет все направления.
+      Один образ — во всех форматах АВИОНа.</p>
+    <div style="margin-top:24px;">
+      <span class="pill">Узел и соединения</span>
+      <span class="pill">Авиатема</span>
+      <span class="pill">Шесть направлений</span>
+      <span class="pill">Канон</span>
+      <span class="pill">Все форматы</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
